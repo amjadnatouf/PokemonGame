@@ -3,7 +3,7 @@
     internal class Bulbasaur : GrassPokemon, IEvolvable
     {
         private const string EvolvedName = "Ivysaur";
-        protected Bulbasaur(List<Attack> attacks) : base("Bulbasaur", 1, attacks)
+        public Bulbasaur(List<Attack> attacks) : base("Bulbasaur", 1, attacks)
         {
         }
 
