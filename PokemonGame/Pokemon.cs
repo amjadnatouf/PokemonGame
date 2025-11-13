@@ -53,5 +53,42 @@ namespace PokemonGame
             Type = type;
             Attacks = attacks;
         }
+
+        public void RandomAttack()
+        {
+            Random random = new Random();
+            int index = random.Next(Attacks.Count);
+            Attack selectedAttack = Attacks[index];
+            Console.WriteLine($"{Name} uses {selectedAttack.Name}!");
+            selectedAttack.Use(Level);
+        }
+
+        public void Attack()
+        {
+            Console.WriteLine($"\n{Name}'s available attacks:");
+            for (int i = 0; i < Attacks.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {Attacks[i].Name} (Type: {Attacks[i].Type}, Power: {Attacks[i].BasePower})");
+            }
+
+            Console.Write("Choose an attack (enter number): ");
+            if (int.TryParse(Console.ReadLine(), out int choice) && choice >= 1 && choice <= Attacks.Count)
+            {
+                Attack selectedAttack = Attacks[choice - 1];
+                Console.WriteLine($"{Name} uses {selectedAttack.Name}!");
+                selectedAttack.Use(Level);
+            }
+            else
+            {
+                Console.WriteLine("Invalid choice! Using random attack instead.");
+                RandomAttack();
+            }
+        }
+
+        public void RaiseLevel()
+        {
+            Level++;
+            Console.WriteLine($"{Name} leveled up! New level: {Level}");
+        }
     }
 }
