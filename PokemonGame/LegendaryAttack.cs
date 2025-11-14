@@ -3,7 +3,7 @@
     internal class LegendaryAttack : Attack
     {
         public LegendaryAttack(Attack baseAttack)
-            : base(baseAttack.Name, baseAttack.Type, baseAttack.BasePower)
+            : base("Legendary" + baseAttack.Name, baseAttack.Type, baseAttack.BasePower * 2)
         {
         }
 

@@ -15,22 +15,27 @@ namespace PokemonGame
 
         private void InitializeAttacks()
         {
-            // Fire attacks
+            // Normal Fire attacks
             Attack flamethrower = new Attack("Flamethrower", ElementType.Fire, 12);
             Attack ember = new Attack("Ember", ElementType.Fire, 6);
+            // Legendary Fire attacks
+            Attack legendaryFlamethrower = new LegendaryAttack(flamethrower);
 
-            // Water attacks
+            // Normal Water attacks
             Attack watergun = new Attack("Water Gun", ElementType.Water, 8);
             Attack hydropump = new Attack("Hydro Pump", ElementType.Water, 15);
+            // Legendary Water attacks
+            Attack legendaryHydropump = new LegendaryAttack(hydropump);
 
-            // Grass attacks
+            // Normal Grass attacks
             Attack vinewhip = new Attack("Vine Whip", ElementType.Grass, 7);
             Attack razorleaf = new Attack("Razor Leaf", ElementType.Grass, 11);
+            // Legendary Grass attacks
+            Attack legendaryRazorleaf = new LegendaryAttack(razorleaf);
 
-
-            _availableAttacks[ElementType.Fire] = new List<Attack> { flamethrower, ember };
-            _availableAttacks[ElementType.Water] = new List<Attack> { watergun, hydropump };
-            _availableAttacks[ElementType.Grass] = new List<Attack> { vinewhip, razorleaf };
+            _availableAttacks[ElementType.Fire] = new List<Attack> { flamethrower, ember, legendaryFlamethrower };
+            _availableAttacks[ElementType.Water] = new List<Attack> { watergun, hydropump, legendaryHydropump };
+            _availableAttacks[ElementType.Grass] = new List<Attack> { vinewhip, razorleaf, legendaryRazorleaf };
         }
 
 
