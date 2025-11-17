@@ -47,40 +47,64 @@ namespace PokemonGame
         }
         public void Start()
         {
-            Console.WriteLine("=== Pokemon Trainer Simulator ===\n");
-
-            foreach (Pokemon pokemon in _pokemons)
+            for (int round = 1; round <= 20; round++)
             {
-                try
+                Console.WriteLine($"\n------ TRAINING ROUND {round} ------");
+
+                for (int i = 0; i < _pokemons.Count; i++)
                 {
-                    Console.WriteLine($"\n--- Training {pokemon.Name} (Type: {pokemon.Type}) ---");
-
-                    // Perform random attack
-                    pokemon.RandomAttack();
-
-                    // Perform user attack
-                    if (pokemon.Name == "Charmander")
-                        pokemon.Attack();
-
-                    // Check if evolvable and evolve
-                    if (pokemon is IEvolvable evolvable)
+                    try
                     {
-                        Console.WriteLine($"\n{pokemon.Name} can evolve!");
-                        evolvable.Evolve();
+                        Pokemon pokemon = _pokemons[i];
+                        Console.WriteLine($"\n--- Training {pokemon.Name} (Type: {pokemon.Type}, Level: {pokemon.Level}) ---");
+
+                        // Speak
+                        pokemon.Speak();
+
+                        // Raise level
+                        pokemon.RaiseLevel();
+
+                        // Check if evolved and replace in list
+                        if (pokemon is IEvolvable evolvable && pokemon.Level >= GetEvolutionLevel(pokemon))
+                        {
+                            Pokemon evolvedPokemon = evolvable.Evolve();
+                            _pokemons[i] = evolvedPokemon;
+                            pokemon = evolvedPokemon;
+                        }
+
+                        // Perform random attack
+                        pokemon.RandomAttack();
+
+                        Console.WriteLine(new string('-', 60));
                     }
-
-                    // Raise level
-                    pokemon.RaiseLevel();
-
-                    Console.WriteLine(new string('-', 50));
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error training {pokemon.Name}: {ex.Message}");
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error training Pokemon: {ex.Message}");
+                    }
                 }
             }
 
             Console.WriteLine("\nTraining Complete.......");
+            Console.WriteLine(new string('-', 60));
+            Console.WriteLine("\nFinal Pokemon Team:");
+            foreach (var pokemon in _pokemons)
+            {
+                Console.WriteLine($"- {pokemon.Name} (Type: {pokemon.Type}, Level: {pokemon.Level})");
+            }
+        }
+
+        private int GetEvolutionLevel(Pokemon pokemon)
+        {
+            return pokemon switch
+            {
+                Charmander => 16,
+                Charmeleon => 36,
+                Squirtle => 16,
+                Wartortle => 36,
+                Bulbasaur => 16,
+                Ivysaur => 32,
+                _ => int.MaxValue
+            };
         }
     }
 }

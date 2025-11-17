@@ -85,10 +85,16 @@ namespace PokemonGame
             }
         }
 
-        public void RaiseLevel()
+        public virtual Pokemon RaiseLevel()
         {
             Level++;
             Console.WriteLine($"{Name} leveled up! New level: {Level}");
+            return this;
+        }
+
+        public virtual void Speak()
+        {
+            Console.WriteLine($"{Name} makes a sound!");
         }
     }
 }
