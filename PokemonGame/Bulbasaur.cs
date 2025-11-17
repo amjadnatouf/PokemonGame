@@ -2,16 +2,32 @@
 {
     internal class Bulbasaur : GrassPokemon, IEvolvable
     {
-        private const string EvolvedName = "Ivysaur";
+        private const int EvolveAtLevel = 16;
+
         public Bulbasaur(List<Attack> attacks) : base("Bulbasaur", 1, attacks)
         {
         }
 
-        public void Evolve()
+        public override Pokemon RaiseLevel()
         {
-            Name = EvolvedName;
-            Level += 10;
-            Console.WriteLine($"Bulbasaur is evolving... Now it is a {Name} and its level is {Level}");
+            base.RaiseLevel();
+
+            if (Level >= EvolveAtLevel)
+            {
+                return Evolve();
+            }
+            return this;
+        }
+
+        public override void Speak()
+        {
+            Console.WriteLine($"{Name} says: Bulba bulba!");
+        }
+
+        public Pokemon Evolve()
+        {
+            Console.WriteLine($"Now it's a Ivysaur at level {Level}");
+            return new Ivysaur(Attacks, Level);
         }
     }
 }

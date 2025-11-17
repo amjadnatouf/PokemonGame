@@ -1,16 +1,18 @@
-﻿namespace PokemonGame
+﻿
+namespace PokemonGame
 {
-    internal class Charmander : FirePokemon, IEvolvable
+    internal class Charmeleon : FirePokemon, IEvolvable
     {
-        private const int EvolveAtLevel = 16;
+        private const int EvolveAtLevel = 36;
 
-        public Charmander(List<Attack> attacks) : base("Charmander", 1, attacks)
+        public Charmeleon(List<Attack> attacks, int currentLevel)
+        : base("Charmeleon", currentLevel, attacks)
         {
         }
 
         public override void Speak()
         {
-            Console.WriteLine($"{Name} says: Char char!");
+            Console.WriteLine($"{Name} says: Char-meleon!");
         }
 
         public override Pokemon RaiseLevel()
@@ -27,7 +29,7 @@
         public Pokemon Evolve()
         {
             Console.WriteLine($"Now it's a Charmeleon at level {Level}");
-            return new Charmeleon(Attacks, Level);
+            return new Charizard(Attacks, Level);
         }
     }
 }
